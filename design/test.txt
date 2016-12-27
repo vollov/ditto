@@ -1,0 +1,22 @@
+python manage.py dumpdata accounts --indent 4 > accounts.json
+python manage.py loaddata accounts.json
+
+
+
+test 1:
+curl -v -H "Content-Type: application/json" -X GET http://localhost:8000/api/users/
+
+test 2:
+curl -v -H "Content-Type: application/json" -X POST --data-binary "@kate.json" http://localhost:8000/api/login/
+
+test 3:
+curl -v -H "Content-Type: application/json"  -H "Authorization: JWT_TOKEN AABBCC"  -X GET http://localhost:8000/api/exs/
+
+curl -v -H 'Authorization: Bearer 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b' -X GET http://localhost:8000/api/exs/
+USE information_schema;
+SELECT *
+FROM
+  KEY_COLUMN_USAGE
+WHERE
+  REFERENCED_TABLE_NAME = 'authentication_account'
+  AND REFERENCED_COLUMN_NAME = 'id';
